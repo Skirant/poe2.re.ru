@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoE 2 Генератор Поиска (RU) - by SkirantPOE</title>
+    <style>
+        :root {
+            --bg-main: #0a0a0f;
+            --bg-panel: #13131a;
+            --bg-input: #1c1c26;
+            --accent: #d4a355; /* Цвет пое */
+            --accent-hover: #ebd59b;
+            --text-main: #e2e2e9;
+            --text-muted: #8b8b9e;
+            --border: #2a2a36;
+            --border-active: #4a4a5c;
+            --danger: #e04a4a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px; /* Расширили для колонок */
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Шапка и Вкладки */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            background: var(--bg-input);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            border-bottom: none;
+        }
+
+            .tab-btn:hover {
+                color: var(--text-main);
+            }
+
+            .tab-btn.active {
+                background: var(--bg-panel);
+                color: var(--accent);
+                border-bottom: 2px solid var(--bg-panel);
+                margin-bottom: -17px; /* Наложение на рамку */
+                padding-bottom: 12px;
+            }
+
+        .logic-toggle {
+            display: flex;
+            gap: 5px;
+            background: var(--bg-input);
+            padding: 4px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .logic-btn {
+            padding: 6px 15px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+            .logic-btn.active {
+                background: var(--border-active);
+                color: var(--text-main);
+            }
+
+        /* Сетка колонок как на poe2.re */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+            padding-top: 15px;
+        }
+
+        .category-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .category-title {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+        }
+
+        /* Чекбоксы */
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            transition: color 0.2s;
+        }
+
+            .checkbox-item:hover {
+                color: var(--accent-hover);
+            }
+
+            .checkbox-item input[type="checkbox"] {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 18px;
+                height: 18px;
+                border: 1px solid var(--text-muted);
+                border-radius: 3px;
+                background: var(--bg-input);
+                cursor: pointer;
+                position: relative;
+                flex-shrink: 0;
+            }
+
+                .checkbox-item input[type="checkbox"]:checked {
+                    background: var(--accent);
+                    border-color: var(--accent);
+                }
+
+                    .checkbox-item input[type="checkbox"]:checked::after {
+                        content: '✓';
+                        position: absolute;
+                        color: var(--bg-main);
+                        font-size: 14px;
+                        font-weight: bold;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+
+        /* Панель результатов */
+        .result-section {
+            background: #08080c;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .result-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .output-string {
+            flex: 1;
+            padding: 12px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            color: var(--accent);
+            font-family: monospace;
+            font-size: 1.05rem;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+
+        /* Кнопки действий */
+        .action-btn {
+            padding: 0 20px;
+            color: var(--bg-main);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .copy-btn {
+            background: var(--accent);
+        }
+
+            .copy-btn:hover {
+                background: var(--accent-hover);
+            }
+
+            .copy-btn.copied {
+                background: #28a745;
+                color: white;
+            }
+
+        .reset-btn {
+            background: var(--border-active);
+            color: var(--text-main);
+        }
+
+            .reset-btn:hover {
+                background: var(--danger);
+                color: white;
+            }
+
+        .limit-warn {
+            color: #ff4444 !important;
+            font-weight: bold;
+        }
+
+        /* Футер */
+        .footer {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+
+        .subscribe-btn {
+            background: #ff0000;
+            color: white;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+
+            .subscribe-btn:hover {
+                background: #cc0000;
+            }
+
+            .subscribe-btn svg {
+                width: 16px;
+                height: 16px;
+                fill: currentColor;
+            }
+
+        .tab-content {
+            display: none;
+        }
+
+            .tab-content.active {
+                display: block;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('vendor')">Продавец</button>
+                <button class="tab-btn" onclick="switchTab('waystones')">Дорожные камни</button>
+                <button class="tab-btn" onclick="switchTab('tablets')">Таблетки</button>
+                <button class="tab-btn" onclick="switchTab('relics')">Реликвии</button>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span style="font-size: 0.85rem; color: var(--text-muted);">Логика поиска:</span>
+                <div class="logic-toggle">
+                    <button class="logic-btn active" id="logicAnd" onclick="setLogic('AND')">Всё (И)</button>
+                    <button class="logic-btn" id="logicOr" onclick="setLogic('OR')">Любое (ИЛИ)</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-vendor" class="tab-content active">
+            <div class="grid-layout">
+
+                <div>
+                    <div class="category-group">
+                        <div class="category-title">Свойство элемента</div>
+                        <label class="checkbox-item"><input type="checkbox" value="качество: \+" onchange="buildString()"> Качество</label>
+                        <label class="checkbox-item"><input type="checkbox" value="гнёзда: \w" onchange="buildString()"> Розетки (Гнезда)</label>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-title">Скорость</div>
+                        <label class="checkbox-item"><input type="checkbox" value="ти атаки" onchange="buildString()"> Скорость атаки</label>
+                        <label class="checkbox-item"><input type="checkbox" value="сотворения" onchange="buildString()"> Скорость сотворения чар</label>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-title">Скорость движения</div>
+                        <label class="checkbox-item"><input type="checkbox" value="3[5-9]%.*движе" onchange="buildString()"> Скорость передвижения (35%)</label>
+                        <label class="checkbox-item"><input type="checkbox" value="3\d%.*движе" onchange="buildString()"> Скорость передвижения (30%)</label>
+                        <label class="checkbox-item"><input type="checkbox" value="2[5-9]%.*движе|3\d%.*движе" onchange="buildString()"> Скорость передвижения (25%)</label>
+                        <label class="checkbox-item"><input type="checkbox" value="2\d%.*движе|3\d%.*движе" onchange="buildString()"> Скорость передвижения (20%)</label>
+                        <label class="checkbox-item"><input type="checkbox" value="1[5-9]%.*движе|2\d%.*движе|3\d%.*движе" onchange="buildString()"> Скорость передвижения (15%)</label>
+                        <label class="checkbox-item"><input type="checkbox" value="1\d%.*движе|2\d%.*движе|3\d%.*движе" onchange="buildString()"> Скорость передвижения (10%)</label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="category-group">
+                        <div class="category-title">Модификаторы элементов</div>
+                        <label class="checkbox-item"><input type="checkbox" value="е физич" onchange="buildString()"> Физический урон</label>
+                        <label class="checkbox-item"><input type="checkbox" value="т стих" onchange="buildString()"> Стихийный урон</label>
+                        <label class="checkbox-item"><input type="checkbox" value="шансу кри" onchange="buildString()"> Шанс крит. попадания</label>
+                        <label class="checkbox-item"><input type="checkbox" value="бонусу" onchange="buildString()"> Крит. Мультипликатор</label>
+                        <label class="checkbox-item"><input type="checkbox" value="му здоро" onchange="buildString()"> Максимум здоровья</label>
+                        <label class="checkbox-item"><input type="checkbox" value="му маны" onchange="buildString()"> Максимум маны</label>
+                        <label class="checkbox-item"><input type="checkbox" value="броня:" onchange="buildString()"> Базовая броня</label>
+                        <label class="checkbox-item"><input type="checkbox" value="уклонение:" onchange="buildString()"> Базовое уклонение</label>
+                        <label class="checkbox-item"><input type="checkbox" value="щит:" onchange="buildString()"> Базовый Энерг. щит</label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="category-group">
+                        <div class="category-title">Сопротивления</div>
+                        <label class="checkbox-item"><input type="checkbox" value="нию ог" onchange="buildString()"> Огнестойкость</label>
+                        <label class="checkbox-item"><input type="checkbox" value="нию хо" onchange="buildString()"> Устойчивость к холоду</label>
+                        <label class="checkbox-item"><input type="checkbox" value="нию мо" onchange="buildString()"> Молниеустойчивость</label>
+                        <label class="checkbox-item"><input type="checkbox" value="нию хао" onchange="buildString()"> Сопротивление хаосу</label>
+                        <label class="checkbox-item"><input type="checkbox" value="всем сти" onchange="buildString()"> Все сопротивления</label>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-title">Редкость предмета</div>
+                        <label class="checkbox-item"><input type="checkbox" class="rarity-cb" value="редкий" onchange="buildString()"> Редкий</label>
+                        <label class="checkbox-item"><input type="checkbox" class="rarity-cb" value="волшебный" onchange="buildString()"> Магический</label>
+                        <label class="checkbox-item"><input type="checkbox" class="rarity-cb" value="обычный" onchange="buildString()"> Нормальный</label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="category-group">
+                        <div class="category-title">Класс товара (Ювелирка)</div>
+                        <label class="checkbox-item"><input type="checkbox" value="амулет" onchange="buildString()"> Амулеты</label>
+                        <label class="checkbox-item"><input type="checkbox" value="кольцо" onchange="buildString()"> Кольца</label>
+                        <label class="checkbox-item"><input type="checkbox" value="пояс" onchange="buildString()"> Ремни (Пояса)</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tab-waystones" class="tab-content">
+            <div class="grid-layout">
+                <div class="category-group">
+                    <div class="category-title">Свойства карт</div>
+                    <label class="checkbox-item"><input type="checkbox" value="во: \+" onchange="buildString()"> Количество предметов</label>
+                    <label class="checkbox-item"><input type="checkbox" value="п: \+" onchange="buildString()"> Размер групп монстров</label>
+                    <label class="checkbox-item"><input type="checkbox" value="редко" onchange="buildString()"> Редкость предметов</label>
+                    <label class="checkbox-item"><input type="checkbox" value="уровн" onchange="buildString()"> Шанс повышения уровня карты</label>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-tablets" class="tab-content">
+            <div class="grid-layout">
+                <div class="category-group">
+                    <div class="category-title">Награды</div>
+                    <label class="checkbox-item"><input type="checkbox" value="брони" onchange="buildString()"> Награды: Броня</label>
+                    <label class="checkbox-item"><input type="checkbox" value="оружи" onchange="buildString()"> Награды: Оружие</label>
+                    <label class="checkbox-item"><input type="checkbox" value="валют" onchange="buildString()"> Награды: Валюта</label>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-relics" class="tab-content">
+            <div class="grid-layout">
+                <div class="category-group">
+                    <div class="category-title">Свойства реликвий</div>
+                    <label class="checkbox-item"><input type="checkbox" value="заряд" onchange="buildString()"> Максимум зарядов</label>
+                    <label class="checkbox-item"><input type="checkbox" value="длитель" onchange="buildString()"> Длительность эффекта</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-section">
+            <div class="result-header">
+                <span>Строка для Ctrl+F в игре</span>
+                <span id="charCount">0 / 50 симв.</span>
+            </div>
+            <div class="result-row">
+                <div class="output-string" id="outputString">Выберите фильтры...</div>
+                <button class="action-btn copy-btn" id="copyBtn" onclick="copyToClipboard()">Копировать</button>
+                <button class="action-btn reset-btn" onclick="resetFilters()">Сброс</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>Данная программа была сделана каналом <strong style="color:var(--text-main);">SkirantPOE</strong>. Отблагодарите автора подпиской!</div>
+            <a href="https://www.youtube.com/channel/UC8QsJrWmQbEq8Ax_j_S5H1Q?sub_confirmation=1" target="_blank" class="subscribe-btn">
+                <svg viewBox="0 0 24 24"><path d="M21.582,6.186c-0.23-0.86-0.908-1.538-1.768-1.768C18.254,4,12,4,12,4S5.746,4,4.186,4.418c-0.86,0.23-1.538,0.908-1.768,1.768C2,7.746,2,12,2,12s0,4.254,0.418,5.814c0.23,0.86,0.908,1.538,1.768,1.768C5.746,20,12,20,12,20s6.254,0,7.814-0.418c0.861-0.23,1.538-0.908,1.768-1.768C22,16.254,22,12,22,12S22,7.746,21.582,6.186z M9.5,15.5v-7L15.5,12L9.5,15.5z" /></svg>
+                Подписаться на YouTube
+            </a>
+        </div>
+    </div>
+
+    <script>
+        let currentLogic = 'AND';
+
+        function switchTab(tabId) {
+        // Переключение визуальных вкладок
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        // Переключение контента
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        document.getElementById(`tab-${tabId}`).classList.add('active');
+
+        buildString();
+        }
+
+        function setLogic(logic) {
+        currentLogic = logic;
+        document.getElementById('logicAnd').classList.toggle('active', logic === 'AND');
+        document.getElementById('logicOr').classList.toggle('active', logic === 'OR');
+        buildString();
+        }
+
+        function resetFilters() {
+        document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+        buildString();
+        }
+
+        function buildString() {
+        // Ищем только в активной вкладке
+        const activeTab = document.querySelector('.tab-content.active');
+
+        // 1. Отдельно собираем редкость (она всегда должна быть через OR внутри себя)
+        const rarityCheckboxes = activeTab.querySelectorAll('.rarity-cb:checked');
+        let rarityStr = "";
+        if (rarityCheckboxes.length > 0) {
+        const rarities = Array.from(rarityCheckboxes).map(cb => cb.value);
+        rarityStr = `"${rarities.join('|')}"`;
+        }
+
+        // 2. Собираем все остальные чекбоксы
+        const otherCheckboxes = activeTab.querySelectorAll('input[type="checkbox"]:not(.rarity-cb):checked');
+        const activeRegexes = Array.from(otherCheckboxes).map(cb => cb.value);
+
+        let finalBlocks = [];
+
+        // Добавляем редкость как отдельный блок, если она есть
+        if (rarityStr) finalBlocks.push(rarityStr);
+
+        // Обрабатываем остальные модификаторы в зависимости от выбранной логики (AND/OR)
+        if (activeRegexes.length > 0) {
+        if (currentLogic === 'OR') {
+        finalBlocks.push(`"${activeRegexes.join('|')}"`);
+        } else { // AND
+        activeRegexes.forEach(r => finalBlocks.push(`"${r}"`));
+        }
+        }
+
+        let finalString = finalBlocks.join(' ');
+
+        // Обновление UI
+        const output = document.getElementById('outputString');
+        const charCount = document.getElementById('charCount');
+
+        if (!finalString) {
+        output.innerText = "Выберите фильтры...";
+        charCount.innerText = "0 / 50 симв.";
+        charCount.className = "";
+        return;
+        }
+
+        output.innerText = finalString;
+        charCount.innerText = `${finalString.length} / 50 симв.`;
+        if (finalString.length > 50) charCount.className = "limit-warn";
+        else charCount.className = "";
+        }
+
+        function copyToClipboard() {
+        const text = document.getElementById('outputString').innerText;
+        if (text.includes("Выберите фильтры...")) return;
+        navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.innerText = "Готово!"; btn.classList.add('copied');
+        setTimeout(() => { btn.innerText = "Копировать"; btn.classList.remove('copied'); }, 1200);
+        });
+        }
+    </script>
+</body>
+</html>
