@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PoE 2 Генератор Поиска (RU) - by SkirantPOE</title>
-    <link rel="icon" type="image/png" href="./favicon.png">
     <style>
         :root {
             --bg-main: #0a0a0f;
             --bg-panel: #13131a;
             --bg-input: #1c1c26;
-            --accent: #d4a355; /* Цвет пое */
+            --accent: #d4a355;
             --accent-hover: #ebd59b;
             --text-main: #e2e2e9;
             --text-muted: #8b8b9e;
@@ -31,7 +30,7 @@
 
         .container {
             width: 100%;
-            max-width: 1200px; /* Расширили для колонок */
+            max-width: 1200px;
             background: var(--bg-panel);
             border: 1px solid var(--border);
             border-radius: 8px;
@@ -77,7 +76,7 @@
                 background: var(--bg-panel);
                 color: var(--accent);
                 border-bottom: 2px solid var(--bg-panel);
-                margin-bottom: -17px; /* Наложение на рамку */
+                margin-bottom: -17px;
                 padding-bottom: 12px;
             }
 
@@ -106,7 +105,36 @@
                 color: var(--text-main);
             }
 
-        /* Сетка колонок как на poe2.re */
+        /* Ползунки внутри чекбоксов */
+        .inline-toggle {
+            display: flex;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-left: auto;
+            width: 80px; /* Фиксированная ширина для ровности */
+        }
+
+            .inline-toggle button {
+                flex: 1;
+                background: transparent;
+                border: none;
+                color: var(--text-muted);
+                padding: 4px 0;
+                font-size: 0.8rem;
+                font-weight: bold;
+                cursor: pointer;
+                transition: 0.2s;
+                text-align: center;
+            }
+
+                .inline-toggle button.active {
+                    background: var(--border-active);
+                    color: var(--text-main);
+                }
+
+        /* Сетка колонок */
         .grid-layout {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -132,6 +160,13 @@
         }
 
         /* Чекбоксы */
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-right: 5px;
+        }
+
         .checkbox-item {
             display: flex;
             align-items: center;
@@ -324,66 +359,85 @@
                 <div>
                     <div class="category-group">
                         <div class="category-title">Свойство элемента</div>
-                        <label class="checkbox-item"><input type="checkbox" value="качество: \+" onchange="buildString()"> Качество</label>
-                        <label class="checkbox-item"><input type="checkbox" value="гнёзда: \w" onchange="buildString()"> Гнезда</label>
+
+                        <div class="checkbox-row">
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="standard-cb" id="cb-qual" onchange="buildString()"> Качество
+                            </label>
+                            <div class="inline-toggle">
+                                <button class="active" id="qual-0" onclick="setQual('0+')">0+</button>
+                                <button id="qual-10" onclick="setQual('10+')">10+</button>
+                            </div>
+                        </div>
+
+                        <div class="checkbox-row">
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="standard-cb" id="cb-sock" onchange="buildString()"> Гнезда
+                            </label>
+                            <div class="inline-toggle">
+                                <button class="active" id="sock-1" onclick="setSock('1+')">1+</button>
+                                <button id="sock-2" onclick="setSock('2+')">2+</button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="category-group">
                         <div class="category-title">Скорость</div>
-                        <label class="checkbox-item"><input type="checkbox" value="ти атаки" onchange="buildString()"> Скорость атаки</label>
-                        <label class="checkbox-item"><input type="checkbox" value="сотворения" onchange="buildString()"> Скорость сотворения чар</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="ти атаки" onchange="buildString()"> Скорость атаки</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="сотворения" onchange="buildString()"> Скорость сотворения чар</label>
                     </div>
 
                     <div class="category-group">
                         <div class="category-title">Скорость передвижения</div>
-                        <label class="checkbox-item"><input type="checkbox" value="3[5-9]%.*движе" onchange="buildString()"> Скорость передвижения (35%+)</label>
-                        <label class="checkbox-item"><input type="checkbox" value="3\d%.*движе" onchange="buildString()"> Скорость передвижения (30%+)</label>
-                        <label class="checkbox-item"><input type="checkbox" value="2[5-9]%.*движе|3\d%.*движе" onchange="buildString()"> Скорость передвижения (25%+)</label>
-                        <label class="checkbox-item"><input type="checkbox" value="2\d%.*движе|3\d%.*движе" onchange="buildString()"> Скорость передвижения (20%+)</label>
-                        <label class="checkbox-item"><input type="checkbox" value="1[5-9]%.*движе|2\d%.*движе|3\d%.*движе" onchange="buildString()"> Скорость передвижения (15%+)</label>
-                        <label class="checkbox-item"><input type="checkbox" value="1\d%.*движе|2\d%.*движе|3\d%.*движе" onchange="buildString()"> Скорость передвижения (10%+)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="3[5-9]%.*движе" onchange="buildString()"> Скорость передвижения (35%+)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="3\d%.*движе" onchange="buildString()"> Скорость передвижения (30%+)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="2[5-9]%.*движе|3\d%.*движе" onchange="buildString()"> Скорость передвижения (25%+)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="2\d%.*движе|3\d%.*движе" onchange="buildString()"> Скорость передвижения (20%+)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="1[5-9]%.*движе|[2-3]\d%.*движе" onchange="buildString()"> Скорость передвижения (15%+)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="[1-3]\d%.*движе" onchange="buildString()"> Скорость передвижения (10%+)</label>
                     </div>
                 </div>
 
                 <div>
                     <div class="category-group">
                         <div class="category-title">Модификаторы элементов</div>
-                        <label class="checkbox-item"><input type="checkbox" value="е физич" onchange="buildString()"> Физический урон</label>
-                        <label class="checkbox-item"><input type="checkbox" value="т стих" onchange="buildString()"> Стихийный урон</label>
-                        <label class="checkbox-item"><input type="checkbox" value="шансу кри" onchange="buildString()"> Шанс крит. попадания</label>
-                        <label class="checkbox-item"><input type="checkbox" value="бонусу" onchange="buildString()"> Крит. Мультипликатор</label>
-                        <label class="checkbox-item"><input type="checkbox" value="му здоро" onchange="buildString()"> Максимум здоровья</label>
-                        <label class="checkbox-item"><input type="checkbox" value="му маны" onchange="buildString()"> Максимум маны</label>
-                        <label class="checkbox-item"><input type="checkbox" value="броня:" onchange="buildString()"> Базовая броня</label>
-                        <label class="checkbox-item"><input type="checkbox" value="уклонение:" onchange="buildString()"> Базовое уклонение</label>
-                        <label class="checkbox-item"><input type="checkbox" value="щит:" onchange="buildString()"> Базовый Энерг. щит</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="е физич" onchange="buildString()"> Физический урон</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="т стих" onchange="buildString()"> Стихийный урон</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="крит\. удара" onchange="buildString()"> Шанс крит. удара</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="бонус крит" onchange="buildString()"> Бонус крит. урона</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="му здоро" onchange="buildString()"> Максимум здоровья</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="му маны" onchange="buildString()"> Максимум маны</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="броня:" onchange="buildString()"> Базовая броня</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="уклонение:" onchange="buildString()"> Базовое уклонение</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="щит:" onchange="buildString()"> Базовый Энерг. щит</label>
                     </div>
                 </div>
 
                 <div>
                     <div class="category-group">
                         <div class="category-title">Сопротивления</div>
-                        <label class="checkbox-item"><input type="checkbox" value="нию ог" onchange="buildString()"> #% к сопротивлению огню</label>
-                        <label class="checkbox-item"><input type="checkbox" value="нию хо" onchange="buildString()"> #% к сопротивлению холоду</label>
-                        <label class="checkbox-item"><input type="checkbox" value="нию мо" onchange="buildString()"> #% к сопротивлению молнии</label>
-                        <label class="checkbox-item"><input type="checkbox" value="нию хао" onchange="buildString()"> #% к сопротивлению хаосу</label>
-                        <label class="checkbox-item"><input type="checkbox" value="всем сти" onchange="buildString()"> Все сопротивления</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="нию ог" onchange="buildString()"> #% к сопротивлению огню</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="нию хо" onchange="buildString()"> #% к сопротивлению холоду</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="нию мо" onchange="buildString()"> #% к сопротивлению молнии</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="нию хао" onchange="buildString()"> #% к сопротивлению хаосу</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="ем ст" onchange="buildString()"> Все сопротивления</label>
                     </div>
 
                     <div class="category-group">
                         <div class="category-title">Редкость предмета</div>
-                        <label class="checkbox-item"><input type="checkbox" class="rarity-cb" value="редкий" onchange="buildString()"> Редкий</label>
-                        <label class="checkbox-item"><input type="checkbox" class="rarity-cb" value="волшебный" onchange="buildString()"> Магический</label>
-                        <label class="checkbox-item"><input type="checkbox" class="rarity-cb" value="обычный" onchange="buildString()"> Нормальный</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb rarity-cb" value="сть: ун" onchange="buildString()"> Уникальный</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb rarity-cb" value="сть: ре" onchange="buildString()"> Редкий</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb rarity-cb" value="сть: во" onchange="buildString()"> Волшебный</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb rarity-cb" value="сть: об" onchange="buildString()"> Обычный</label>
                     </div>
                 </div>
 
                 <div>
                     <div class="category-group">
                         <div class="category-title">Класс товара (Ювелирка)</div>
-                        <label class="checkbox-item"><input type="checkbox" value="амулет" onchange="buildString()"> Амулеты</label>
-                        <label class="checkbox-item"><input type="checkbox" value="кольцо" onchange="buildString()"> Кольца</label>
-                        <label class="checkbox-item"><input type="checkbox" value="пояс" onchange="buildString()"> Ремни (Пояса)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="Амулет" onchange="buildString()"> Амулеты</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="Кольц" onchange="buildString()"> Кольца</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="Пояс" onchange="buildString()"> Ремни (Пояса)</label>
                     </div>
                 </div>
 
@@ -394,10 +448,10 @@
             <div class="grid-layout">
                 <div class="category-group">
                     <div class="category-title">Свойства карт</div>
-                    <label class="checkbox-item"><input type="checkbox" value="во: \+" onchange="buildString()"> Количество предметов</label>
-                    <label class="checkbox-item"><input type="checkbox" value="п: \+" onchange="buildString()"> Размер групп монстров</label>
-                    <label class="checkbox-item"><input type="checkbox" value="редко" onchange="buildString()"> Редкость предметов</label>
-                    <label class="checkbox-item"><input type="checkbox" value="уровн" onchange="buildString()"> Шанс повышения уровня карты</label>
+                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="во: \+" onchange="buildString()"> Количество предметов</label>
+                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="п: \+" onchange="buildString()"> Размер групп монстров</label>
+                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="редко" onchange="buildString()"> Редкость предметов</label>
+                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="уровн" onchange="buildString()"> Шанс повышения уровня карты</label>
                 </div>
             </div>
         </div>
@@ -406,9 +460,9 @@
             <div class="grid-layout">
                 <div class="category-group">
                     <div class="category-title">Награды</div>
-                    <label class="checkbox-item"><input type="checkbox" value="брони" onchange="buildString()"> Награды: Броня</label>
-                    <label class="checkbox-item"><input type="checkbox" value="оружи" onchange="buildString()"> Награды: Оружие</label>
-                    <label class="checkbox-item"><input type="checkbox" value="валют" onchange="buildString()"> Награды: Валюта</label>
+                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="брони" onchange="buildString()"> Награды: Броня</label>
+                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="оружи" onchange="buildString()"> Награды: Оружие</label>
+                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="валют" onchange="buildString()"> Награды: Валюта</label>
                 </div>
             </div>
         </div>
@@ -417,8 +471,8 @@
             <div class="grid-layout">
                 <div class="category-group">
                     <div class="category-title">Свойства реликвий</div>
-                    <label class="checkbox-item"><input type="checkbox" value="заряд" onchange="buildString()"> Максимум зарядов</label>
-                    <label class="checkbox-item"><input type="checkbox" value="длитель" onchange="buildString()"> Длительность эффекта</label>
+                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="заряд" onchange="buildString()"> Максимум зарядов</label>
+                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="длитель" onchange="buildString()"> Длительность эффекта</label>
                 </div>
             </div>
         </div>
@@ -426,7 +480,7 @@
         <div class="result-section">
             <div class="result-header">
                 <span>Строка для Ctrl+F в игре</span>
-                <span id="charCount">0 / 50 симв.</span>
+                <span id="charCount">0 / 250 симв.</span>
             </div>
             <div class="result-row">
                 <div class="output-string" id="outputString">Выберите фильтры...</div>
@@ -446,13 +500,15 @@
 
     <script>
         let currentLogic = 'AND';
+        let currentQual = '0+';
+        let currentSock = '1+';
 
         function switchTab(tabId) {
-        // Переключение визуальных вкладок
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        if (event && event.target) {
         event.target.classList.add('active');
+        }
 
-        // Переключение контента
         document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
         document.getElementById(`tab-${tabId}`).classList.add('active');
 
@@ -466,16 +522,28 @@
         buildString();
         }
 
+        function setQual(val) {
+        currentQual = val;
+        document.getElementById('qual-0').classList.toggle('active', val === '0+');
+        document.getElementById('qual-10').classList.toggle('active', val === '10+');
+        if (document.getElementById('cb-qual').checked) buildString();
+        }
+
+        function setSock(val) {
+        currentSock = val;
+        document.getElementById('sock-1').classList.toggle('active', val === '1+');
+        document.getElementById('sock-2').classList.toggle('active', val === '2+');
+        if (document.getElementById('cb-sock').checked) buildString();
+        }
+
         function resetFilters() {
-        document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.querySelectorAll('.standard-cb').forEach(cb => cb.checked = false);
         buildString();
         }
 
         function buildString() {
-        // Ищем только в активной вкладке
         const activeTab = document.querySelector('.tab-content.active');
 
-        // 1. Отдельно собираем редкость (она всегда должна быть через OR внутри себя)
         const rarityCheckboxes = activeTab.querySelectorAll('.rarity-cb:checked');
         let rarityStr = "";
         if (rarityCheckboxes.length > 0) {
@@ -483,40 +551,48 @@
         rarityStr = `"${rarities.join('|')}"`;
         }
 
-        // 2. Собираем все остальные чекбоксы
-        const otherCheckboxes = activeTab.querySelectorAll('input[type="checkbox"]:not(.rarity-cb):checked');
-        const activeRegexes = Array.from(otherCheckboxes).map(cb => cb.value);
+        const otherCheckboxes = activeTab.querySelectorAll('.standard-cb:not(.rarity-cb):checked');
+        let activeRegexes = [];
+
+        otherCheckboxes.forEach(cb => {
+        if (cb.id === 'cb-qual') {
+        if (currentQual === '0+') activeRegexes.push("Качество: \\+");
+        else activeRegexes.push("Качество: \\+[1-9]\\d");
+        } else if (cb.id === 'cb-sock') {
+        if (currentSock === '1+') activeRegexes.push("да: .");
+        else activeRegexes.push("да: . .");
+        } else {
+        activeRegexes.push(cb.value);
+        }
+        });
 
         let finalBlocks = [];
 
-        // Добавляем редкость как отдельный блок, если она есть
         if (rarityStr) finalBlocks.push(rarityStr);
 
-        // Обрабатываем остальные модификаторы в зависимости от выбранной логики (AND/OR)
         if (activeRegexes.length > 0) {
         if (currentLogic === 'OR') {
         finalBlocks.push(`"${activeRegexes.join('|')}"`);
-        } else { // AND
+        } else {
         activeRegexes.forEach(r => finalBlocks.push(`"${r}"`));
         }
         }
 
         let finalString = finalBlocks.join(' ');
 
-        // Обновление UI
         const output = document.getElementById('outputString');
         const charCount = document.getElementById('charCount');
 
         if (!finalString) {
         output.innerText = "Выберите фильтры...";
-        charCount.innerText = "0 / 50 симв.";
+        charCount.innerText = "0 / 250 симв.";
         charCount.className = "";
         return;
         }
 
         output.innerText = finalString;
-        charCount.innerText = `${finalString.length} / 50 симв.`;
-        if (finalString.length > 50) charCount.className = "limit-warn";
+        charCount.innerText = `${finalString.length} / 250 симв.`;
+        if (finalString.length > 250) charCount.className = "limit-warn";
         else charCount.className = "";
         }
 
