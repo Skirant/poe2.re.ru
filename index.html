@@ -140,8 +140,8 @@
         /* Сетка колонок */
         .grid-layout {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
             padding-top: 15px;
         }
 
@@ -344,7 +344,7 @@
             <div class="tabs">
                 <button class="tab-btn active" onclick="switchTab('vendor')">Продавец</button>
                 <button class="tab-btn" onclick="switchTab('waystones')">Дорожные камни</button>
-                <button class="tab-btn" onclick="switchTab('tablets')">Плитки (Таблетки)</button>
+                <button class="tab-btn" onclick="switchTab('tablets')">Таблетки</button>
                 <button class="tab-btn" onclick="switchTab('relics')">Реликвии</button>
             </div>
 
@@ -357,7 +357,6 @@
             </div>
         </div>
 
-        <!-- Вкладка ПРОДАВЕЦ -->
         <div id="tab-vendor" class="tab-content active">
             <div class="grid-layout">
 
@@ -408,9 +407,8 @@
                         <div class="category-title">Модификаторы элементов</div>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="е физич" onchange="buildString()"> Физический урон</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="т стих" onchange="buildString()"> Стихийный урон</label>
-                        <!-- Исправленные модификаторы крита -->
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="нсу кр" onchange="buildString()"> Шанс крит. удара</label>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="бонусу" onchange="buildString()"> Бонус крит. урона</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="к шансу кри" onchange="buildString()"> Шанс крит. удара</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="к бонусу кри" onchange="buildString()"> Бонус крит. удара</label>
 
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="му здоро" onchange="buildString()"> Максимум здоровья</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="му маны" onchange="buildString()"> Максимум маны</label>
@@ -442,17 +440,40 @@
                 <div>
                     <div class="category-group">
                         <div class="category-title">Класс товара (Ювелирка)</div>
-                        <!-- Исправленные классы ювелирки -->
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="Амулет" onchange="buildString()"> Амулеты</label>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="Кольцо" onchange="buildString()"> Кольца</label>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="Пояс" onchange="buildString()"> Ремни (Пояса)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="амул" onchange="buildString()"> Амулеты</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="коль" onchange="buildString()"> Кольца</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="пояс" onchange="buildString()"> Ремни (Пояса)</label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="category-group">
+                        <div class="category-title">Одноручное оружие</div>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="когт" onchange="buildString()"> Когти</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="кинж" onchange="buildString()"> Кинжалы</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="жезл" onchange="buildString()"> Жезлы</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="одно.*ме" onchange="buildString()"> Одноручные мечи</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="одно.*то" onchange="buildString()"> Одноручные топоры</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="одно.*бу" onchange="buildString()"> Одноручные булавы</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="скип" onchange="buildString()"> Скипетры</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="копь" onchange="buildString()"> Копья</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="кист" onchange="buildString()"> Кистени</label>
+                    </div>
+                    <div class="category-group">
+                        <div class="category-title">Двуручное оружие</div>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="лук" onchange="buildString()"> Луки</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="дву.*ме" onchange="buildString()"> Двуручные мечи</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="дву.*то" onchange="buildString()"> Двуручные топоры</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="дву.*бу" onchange="buildString()"> Двуручные булавы</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="бое.*по" onchange="buildString()"> Боевые посохи</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="посох" onchange="buildString()"> Посохи</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="самос" onchange="buildString()"> Самострелы</label>
                     </div>
                 </div>
 
             </div>
         </div>
 
-        <!-- Вкладка ДОРОЖНЫЕ КАМНИ -->
         <div id="tab-waystones" class="tab-content">
             <div class="grid-layout">
                 <div>
@@ -487,7 +508,6 @@
             </div>
         </div>
 
-        <!-- Вкладка ПЛИТКИ -->
         <div id="tab-tablets" class="tab-content">
             <div class="grid-layout">
                 <div>
@@ -533,7 +553,6 @@
             </div>
         </div>
 
-        <!-- Вкладка РЕЛИКВИИ -->
         <div id="tab-relics" class="tab-content">
             <div class="grid-layout">
                 <div>
