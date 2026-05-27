@@ -54,6 +54,7 @@
         .tabs {
             display: flex;
             gap: 5px;
+            flex-wrap: wrap;
         }
 
         .tab-btn {
@@ -115,7 +116,7 @@
             border-radius: 4px;
             overflow: hidden;
             margin-left: auto;
-            width: 80px; /* Фиксированная ширина для ровности */
+            width: 80px;
         }
 
             .inline-toggle button {
@@ -343,7 +344,7 @@
             <div class="tabs">
                 <button class="tab-btn active" onclick="switchTab('vendor')">Продавец</button>
                 <button class="tab-btn" onclick="switchTab('waystones')">Дорожные камни</button>
-                <button class="tab-btn" onclick="switchTab('tablets')">Таблетки</button>
+                <button class="tab-btn" onclick="switchTab('tablets')">Плитки (Таблетки)</button>
                 <button class="tab-btn" onclick="switchTab('relics')">Реликвии</button>
             </div>
 
@@ -356,6 +357,7 @@
             </div>
         </div>
 
+        <!-- Вкладка ПРОДАВЕЦ -->
         <div id="tab-vendor" class="tab-content active">
             <div class="grid-layout">
 
@@ -406,8 +408,10 @@
                         <div class="category-title">Модификаторы элементов</div>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="е физич" onchange="buildString()"> Физический урон</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="т стих" onchange="buildString()"> Стихийный урон</label>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="крит\. удара" onchange="buildString()"> Шанс крит. удара</label>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="бонус крит" onchange="buildString()"> Бонус крит. урона</label>
+                        <!-- Исправленные модификаторы крита -->
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="нсу кр" onchange="buildString()"> Шанс крит. удара</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="бонусу" onchange="buildString()"> Бонус крит. урона</label>
+
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="му здоро" onchange="buildString()"> Максимум здоровья</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="му маны" onchange="buildString()"> Максимум маны</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="броня:" onchange="buildString()"> Базовая броня</label>
@@ -438,15 +442,17 @@
                 <div>
                     <div class="category-group">
                         <div class="category-title">Класс товара (Ювелирка)</div>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="сс: ам" onchange="buildString()"> Амулеты</label>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="сс: кол" onchange="buildString()"> Кольца</label>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="сс: поя" onchange="buildString()"> Ремни (Пояса)</label>
+                        <!-- Исправленные классы ювелирки -->
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="Амулет" onchange="buildString()"> Амулеты</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="Кольцо" onchange="buildString()"> Кольца</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="Пояс" onchange="buildString()"> Ремни (Пояса)</label>
                     </div>
                 </div>
 
             </div>
         </div>
 
+        <!-- Вкладка ДОРОЖНЫЕ КАМНИ -->
         <div id="tab-waystones" class="tab-content">
             <div class="grid-layout">
                 <div>
@@ -481,40 +487,53 @@
             </div>
         </div>
 
+        <!-- Вкладка ПЛИТКИ -->
         <div id="tab-tablets" class="tab-content">
             <div class="grid-layout">
                 <div>
                     <div class="category-group">
-                        <div class="category-title">Механики лиг (Эндгейм)</div>
+                        <div class="category-title">Механики лиг</div>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="экспед" onchange="buildString()"> Экспедиция (Expedition)</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="ритуал" onchange="buildString()"> Ритуал (Ritual)</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="разлом" onchange="buildString()"> Разлом (Breach)</label>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="туман|делир" onchange="buildString()"> Делириум / Туман (Delirium)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="делир" onchange="buildString()"> Делириум (Delirium)</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="бездн" onchange="buildString()"> Бездна (Abyss)</label>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="босс" onchange="buildString()"> Усиление Босса (Overseer)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="сквер" onchange="buildString()"> Скверна (Blight)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="алтар" onchange="buildString()"> Алтари (Shrines)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="ларц" onchange="buildString()"> Ларцы (Strongboxes)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="тайн" onchange="buildString()"> Тайники (Caches)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="испыт" onchange="buildString()"> Испытания (Trials)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="смотр" onchange="buildString()"> Смотрители / Боссы</label>
+                    </div>
+                </div>
+                <div>
+                    <div class="category-group">
+                        <div class="category-title">Ранг плитки</div>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="ранг: 4" onchange="buildString()"> Ранг 4</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="ранг: 3" onchange="buildString()"> Ранг 3</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="ранг: 2" onchange="buildString()"> Ранг 2</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="ранг: 1" onchange="buildString()"> Ранг 1</label>
                     </div>
                 </div>
                 <div>
                     <div class="category-group">
                         <div class="category-title">Награды и свойства</div>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="остало" onchange="buildString()"> Количество применений</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="остало" onchange="buildString()"> Использований осталось</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="удвоен" onchange="buildString()"> Удвоенные награды</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="валют" onchange="buildString()"> Валюта</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="уникал" onchange="buildString()"> Уникальные предметы</label>
-                    </div>
-                </div>
-                <div>
-                    <div class="category-group">
-                        <div class="category-title">Редкость таблетки</div>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb rarity-cb" value="сть: ун" onchange="buildString()"> Уникальный</label>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb rarity-cb" value="сть: ре" onchange="buildString()"> Редкий</label>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb rarity-cb" value="сть: во" onchange="buildString()"> Волшебный</label>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb rarity-cb" value="сть: об" onchange="buildString()"> Обычный</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="золот" onchange="buildString()"> Находимое золото</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="опыт" onchange="buildString()"> Получаемый опыт</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="гадал" onchange="buildString()"> Гадальные карты</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="самоц" onchange="buildString()"> Самоцветы</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="рун" onchange="buildString()"> Руны</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="умени" onchange="buildString()"> Камни умений</label>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Вкладка РЕЛИКВИИ -->
         <div id="tab-relics" class="tab-content">
             <div class="grid-layout">
                 <div>
@@ -559,7 +578,7 @@
         </div>
 
         <div class="footer">
-            <div>Данная программа была сделана каналом <strong style="color:var(--text-main);">SkirantPOE</strong>  и находится в активной разработке. Отблагодарите автора подпиской!</div>
+            <div>Данная программа была сделана каналом <strong style="color:var(--text-main);">SkirantPOE</strong>. Отблагодарите автора подпиской!</div>
             <a href="https://www.youtube.com/channel/UC8QsJrWmQbEq8Ax_j_S5H1Q?sub_confirmation=1" target="_blank" class="subscribe-btn">
                 <svg viewBox="0 0 24 24"><path d="M21.582,6.186c-0.23-0.86-0.908-1.538-1.768-1.768C18.254,4,12,4,12,4S5.746,4,4.186,4.418c-0.86,0.23-1.538,0.908-1.768,1.768C2,7.746,2,12,2,12s0,4.254,0.418,5.814c0.23,0.86,0.908,1.538,1.768,1.768C5.746,20,12,20,12,20s6.254,0,7.814-0.418c0.861-0.23,1.538-0.908,1.768-1.768C22,16.254,22,12,22,12S22,7.746,21.582,6.186z M9.5,15.5v-7L15.5,12L9.5,15.5z" /></svg>
                 Подписаться на YouTube
@@ -625,8 +644,8 @@
 
         otherCheckboxes.forEach(cb => {
         if (cb.id === 'cb-qual') {
-        if (currentQual === '0+') activeRegexes.push("Качество: \\+");
-        else activeRegexes.push("Качество: \\+[1-9]\\d");
+        if (currentQual === '0+') activeRegexes.push("качество: \\+");
+        else activeRegexes.push("качество: \\+[1-9]\\d");
         } else if (cb.id === 'cb-sock') {
         if (currentSock === '1+') activeRegexes.push("да: .");
         else activeRegexes.push("да: . .");
