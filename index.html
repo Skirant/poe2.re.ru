@@ -99,6 +99,7 @@
             cursor: pointer;
             font-size: 0.85rem;
             font-weight: bold;
+            transition: background 0.2s, color 0.2s;
         }
 
             .logic-btn.active {
@@ -164,6 +165,7 @@
         .checkbox-row {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 10px;
             padding-right: 5px;
         }
@@ -436,9 +438,9 @@
                 <div>
                     <div class="category-group">
                         <div class="category-title">Класс товара (Ювелирка)</div>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="Амулет" onchange="buildString()"> Амулеты</label>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="Кольц" onchange="buildString()"> Кольца</label>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="Пояс" onchange="buildString()"> Ремни (Пояса)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="сс: ам" onchange="buildString()"> Амулеты</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="сс: кол" onchange="buildString()"> Кольца</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="сс: поя" onchange="buildString()"> Ремни (Пояса)</label>
                     </div>
                 </div>
 
@@ -447,33 +449,99 @@
 
         <div id="tab-waystones" class="tab-content">
             <div class="grid-layout">
-                <div class="category-group">
-                    <div class="category-title">Свойства карт</div>
-                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="во: \+" onchange="buildString()"> Количество предметов</label>
-                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="п: \+" onchange="buildString()"> Размер групп монстров</label>
-                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="редко" onchange="buildString()"> Редкость предметов</label>
-                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="уровн" onchange="buildString()"> Шанс повышения уровня карты</label>
+                <div>
+                    <div class="category-group">
+                        <div class="category-title">Основные свойства</div>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="во: \+" onchange="buildString()"> Количество предметов</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="п: \+" onchange="buildString()"> Размер групп монстров</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="ть: \+" onchange="buildString()"> Редкость предметов</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="ей: \+" onchange="buildString()"> Шанс выпадения дорожных камней</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="золот" onchange="buildString()"> Находимое золото</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="опыта" onchange="buildString()"> Получаемый опыт</label>
+                    </div>
+                </div>
+                <div>
+                    <div class="category-group">
+                        <div class="category-title">Монстры и Сундуки</div>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="магич" onchange="buildString()"> Магические монстры / сундуки</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="редки" onchange="buildString()"> Редкие монстры / сундуки</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="нежит" onchange="buildString()"> Нежить (Undead)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="звере" onchange="buildString()"> Звери (Beasts)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="демон" onchange="buildString()"> Демоны (Demons)</label>
+                    </div>
+                </div>
+                <div>
+                    <div class="category-group">
+                        <div class="category-title">Редкость камня</div>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb rarity-cb" value="сть: ре" onchange="buildString()"> Редкий</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb rarity-cb" value="сть: во" onchange="buildString()"> Волшебный</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb rarity-cb" value="сть: об" onchange="buildString()"> Обычный</label>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div id="tab-tablets" class="tab-content">
             <div class="grid-layout">
-                <div class="category-group">
-                    <div class="category-title">Награды</div>
-                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="брони" onchange="buildString()"> Награды: Броня</label>
-                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="оружи" onchange="buildString()"> Награды: Оружие</label>
-                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="валют" onchange="buildString()"> Награды: Валюта</label>
+                <div>
+                    <div class="category-group">
+                        <div class="category-title">Механики лиг (Эндгейм)</div>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="экспед" onchange="buildString()"> Экспедиция (Expedition)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="ритуал" onchange="buildString()"> Ритуал (Ritual)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="разлом" onchange="buildString()"> Разлом (Breach)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="туман|делир" onchange="buildString()"> Делириум / Туман (Delirium)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="бездн" onchange="buildString()"> Бездна (Abyss)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="босс" onchange="buildString()"> Усиление Босса (Overseer)</label>
+                    </div>
+                </div>
+                <div>
+                    <div class="category-group">
+                        <div class="category-title">Награды и свойства</div>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="остало" onchange="buildString()"> Количество применений</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="удвоен" onchange="buildString()"> Удвоенные награды</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="валют" onchange="buildString()"> Валюта</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="уникал" onchange="buildString()"> Уникальные предметы</label>
+                    </div>
+                </div>
+                <div>
+                    <div class="category-group">
+                        <div class="category-title">Редкость таблетки</div>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb rarity-cb" value="сть: ун" onchange="buildString()"> Уникальный</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb rarity-cb" value="сть: ре" onchange="buildString()"> Редкий</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb rarity-cb" value="сть: во" onchange="buildString()"> Волшебный</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb rarity-cb" value="сть: об" onchange="buildString()"> Обычный</label>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div id="tab-relics" class="tab-content">
             <div class="grid-layout">
-                <div class="category-group">
-                    <div class="category-title">Свойства реликвий</div>
-                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="заряд" onchange="buildString()"> Максимум зарядов</label>
-                    <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="длитель" onchange="buildString()"> Длительность эффекта</label>
+                <div>
+                    <div class="category-group">
+                        <div class="category-title">Основные свойства</div>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="заряд" onchange="buildString()"> Максимум зарядов</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="длител" onchange="buildString()"> Длительность эффекта</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="потрат" onchange="buildString()"> Шанс не потратить заряд</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="скорос" onchange="buildString()"> Скорость применения</label>
+                    </div>
+                </div>
+                <div>
+                    <div class="category-group">
+                        <div class="category-title">Восстановление</div>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="здоров" onchange="buildString()"> Восстановление здоровья</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="маны" onchange="buildString()"> Восстановление маны</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="щит" onchange="buildString()"> Восстановление Энерг. щита</label>
+                    </div>
+                </div>
+                <div>
+                    <div class="category-group">
+                        <div class="category-title">Снятие эффектов</div>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="заморо" onchange="buildString()"> Снимает заморозку</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="кровот" onchange="buildString()"> Снимает кровотечение</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="шок" onchange="buildString()"> Снимает шок</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="поджо" onchange="buildString()"> Снимает поджог</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -491,7 +559,7 @@
         </div>
 
         <div class="footer">
-            <div>Данная программа была сделана каналом <strong style="color:var(--text-main);">SkirantPOE</strong>. Отблагодарите автора подпиской!</div>
+            <div>Данная программа была сделана каналом <strong style="color:var(--text-main);">SkirantPOE</strong>  и находится в активной разработке. Отблагодарите автора подпиской!</div>
             <a href="https://www.youtube.com/channel/UC8QsJrWmQbEq8Ax_j_S5H1Q?sub_confirmation=1" target="_blank" class="subscribe-btn">
                 <svg viewBox="0 0 24 24"><path d="M21.582,6.186c-0.23-0.86-0.908-1.538-1.768-1.768C18.254,4,12,4,12,4S5.746,4,4.186,4.418c-0.86,0.23-1.538,0.908-1.768,1.768C2,7.746,2,12,2,12s0,4.254,0.418,5.814c0.23,0.86,0.908,1.538,1.768,1.768C5.746,20,12,20,12,20s6.254,0,7.814-0.418c0.861-0.23,1.538-0.908,1.768-1.768C22,16.254,22,12,22,12S22,7.746,21.582,6.186z M9.5,15.5v-7L15.5,12L9.5,15.5z" /></svg>
                 Подписаться на YouTube
