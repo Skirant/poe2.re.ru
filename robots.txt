@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://poe2-re.ru/sitemap.xml
