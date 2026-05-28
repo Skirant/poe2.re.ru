@@ -334,6 +334,35 @@
             .tab-content.active {
                 display: block;
             }
+
+        /* Фильтр уровня предмета */
+        .level-filter {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .level-filter label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .level-select {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-main);
+            padding: 4px 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+            .level-select:focus {
+                outline: none;
+                border-color: var(--border-active);
+            }
     </style>
 </head>
 <body>
@@ -406,9 +435,16 @@
                     <div class="category-group">
                         <div class="category-title">Модификаторы элементов</div>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="е физич" onchange="buildString()"> Физический урон</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="от чар" onchange="buildString()"> Урон заклинаниями</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="т стих" onchange="buildString()"> Стихийный урон</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="огня" onchange="buildString()"> Урон от огня</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="холода" onchange="buildString()"> Урон от холода</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="от молн" onchange="buildString()"> Урон от молнии</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="хаосом" onchange="buildString()"> Урон хаосом</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="к шансу кри" onchange="buildString()"> Шанс крит. удара</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="к бонусу кри" onchange="buildString()"> Бонус крит. удара</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="к духу" onchange="buildString()"> +# к духу</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="найденных" onchange="buildString()"> Повышенная редкость</label>
 
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="му здоро" onchange="buildString()"> Максимум здоровья</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="му маны" onchange="buildString()"> Максимум маны</label>
@@ -439,10 +475,49 @@
 
                 <div>
                     <div class="category-group">
-                        <div class="category-title">Класс товара (Ювелирка)</div>
+                        <div class="category-title">Камни умений</div>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="камней умен" onchange="buildString()"> Все умения</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="ближн" onchange="buildString()"> Ближний бой</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="приспешн" onchange="buildString()"> Приспешники</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="снаряд" onchange="buildString()"> Снаряды</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="умений чар" onchange="buildString()"> Чары (все)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="чар огн" onchange="buildString()"> Чары огня</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="чар хол" onchange="buildString()"> Чары холода</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="чар мол" onchange="buildString()"> Чары молнии</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="чар хаос" onchange="buildString()"> Чары хаоса</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="физических" onchange="buildString()"> Физические чары</label>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-title">Атрибуты</div>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="к силе" onchange="buildString()"> Сила</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="к интелл" onchange="buildString()"> Интеллект</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="к ловк" onchange="buildString()"> Ловкость</label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="category-group">
+                        <div class="category-title">Класс товара (Бижутерия)</div>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="амул" onchange="buildString()"> Амулеты</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="коль" onchange="buildString()"> Кольца</label>
-                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="пояс" onchange="buildString()"> Ремни (Пояса)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="пояс" onchange="buildString()"> Пояса</label>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-title">Снаряжение</div>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="перч" onchange="buildString()"> Перчатки</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="обувь" onchange="buildString()"> Обувь</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="нател" onchange="buildString()"> Нательные доспехи</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="шлем" onchange="buildString()"> Шлемы</label>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-title">Для левой руки</div>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="колч" onchange="buildString()"> Колчаны</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="щит" onchange="buildString()"> Щиты</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="баклер" onchange="buildString()"> Баклеры</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="фокус" onchange="buildString()"> Фокусы</label>
                     </div>
                 </div>
 
@@ -468,6 +543,27 @@
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="бое.*по" onchange="buildString()"> Боевые посохи</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="посох" onchange="buildString()"> Посохи</label>
                         <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="самос" onchange="buildString()"> Самострелы</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="ловуш" onchange="buildString()"> Ловушки</label>
+                        <label class="checkbox-item"><input type="checkbox" class="standard-cb" value="талис" onchange="buildString()"> Талисманы</label>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-title">Уровень предмета</div>
+                        <div class="level-filter">
+                            <label>Мин. уровень:</label>
+                            <select class="level-select" id="itemLevelSelect" onchange="buildString()">
+                                <option value="">Любой</option>
+                                <option value="60">60+</option>
+                                <option value="65">65+</option>
+                                <option value="70">70+</option>
+                                <option value="75">75+</option>
+                                <option value="80">80+</option>
+                                <option value="85">85+</option>
+                                <option value="90">90+</option>
+                                <option value="95">95+</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -656,7 +752,26 @@
 
         function resetFilters() {
         document.querySelectorAll('.standard-cb').forEach(cb => cb.checked = false);
+        const lvlSel = document.getElementById('itemLevelSelect');
+        if (lvlSel) lvlSel.value = '';
         buildString();
+        }
+
+        function generateLevelRegex(min) {
+        min = parseInt(min);
+        if (!min || min <= 0) return '';
+        if (min >= 100) return 'предм.*100';
+        const d = Math.floor(min / 10);
+        const u = min % 10;
+        const parts = [];
+        if (u > 0) {
+            parts.push('предм.*' + d + '[' + u + '-9]');
+            if (d < 9) parts.push('предм.*[' + (d + 1) + '-9]\\d');
+        } else {
+            parts.push('предм.*[' + d + '-9]\\d');
+        }
+        parts.push('предм.*100');
+        return parts.join('|');
         }
 
         function buildString() {
@@ -677,8 +792,8 @@
         if (currentQual === '0+') activeRegexes.push("качество: \\+");
         else activeRegexes.push("качество: \\+[1-9]\\d");
         } else if (cb.id === 'cb-sock') {
-                    if (currentSock === '1+') activeRegexes.push("незда: .");
-                    else activeRegexes.push("незда: . .");
+        if (currentSock === '1+') activeRegexes.push("незда: .");
+        else activeRegexes.push("незда: . .");
                 } else {
         activeRegexes.push(cb.value);
         }
@@ -695,7 +810,12 @@
         activeRegexes.forEach(r => finalBlocks.push(`"${r}"`));
         }
         }
-
+        // Уровень предмета — независим от AND/OR режима
+        const lvlSel = document.getElementById('itemLevelSelect');
+        if (lvlSel && lvlSel.value) {
+        const lvlRegex = generateLevelRegex(lvlSel.value);
+        if (lvlRegex) finalBlocks.push(`"${lvlRegex}"`);
+        }
         let finalString = finalBlocks.join(' ');
 
         const output = document.getElementById('outputString');
