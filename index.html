@@ -598,12 +598,23 @@
 
         <div class="footer">
             <div>Данная программа была сделана каналом <strong style="color:var(--text-main);">SkirantPOE</strong>. Отблагодарите автора подпиской!</div>
-            <a href="https://www.youtube.com/channel/UC8QsJrWmQbEq8Ax_j_S5H1Q?sub_confirmation=1" target="_blank" class="subscribe-btn">
-                <svg viewBox="0 0 24 24"><path d="M21.582,6.186c-0.23-0.86-0.908-1.538-1.768-1.768C18.254,4,12,4,12,4S5.746,4,4.186,4.418c-0.86,0.23-1.538,0.908-1.768,1.768C2,7.746,2,12,2,12s0,4.254,0.418,5.814c0.23,0.86,0.908,1.538,1.768,1.768C5.746,20,12,20,12,20s6.254,0,7.814-0.418c0.861-0.23,1.538-0.908,1.768-1.768C22,16.254,22,12,22,12S22,7.746,21.582,6.186z M9.5,15.5v-7L15.5,12L9.5,15.5z" /></svg>
-                Подписаться на YouTube
-            </a>
+
+            
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+
+                <a href="https://www.youtube.com/channel/UC8QsJrWmQbEq8Ax_j_S5H1Q?sub_confirmation=1" target="_blank" class="subscribe-btn">
+                    <svg viewBox="0 0 24 24"><path d="M21.582,6.186c-0.23-0.86-0.908-1.538-1.768-1.768C18.254,4,12,4,12,4S5.746,4,4.186,4.418c-0.86,0.23-1.538,0.908-1.768,1.768C2,7.746,2,12,2,12s0,4.254,0.418,5.814c0.23,0.86,0.908,1.538,1.768,1.768C5.746,20,12,20,12,20s6.254,0,7.814-0.418c0.861-0.23,1.538-0.908,1.768-1.768C22,16.254,22,12,22,12S22,7.746,21.582,6.186z M9.5,15.5v-7L15.5,12L9.5,15.5z" /></svg>
+                    Подписаться на YouTube
+                </a>
+
+                
+                <a href="https://pay.cloudtips.ru/p/48c71a4d" target="_blank" style="background: var(--accent); color: var(--bg-panel); text-decoration: none; padding: 8px 18px; border-radius: 4px; font-weight: bold; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                    <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;"><path d="M20,3H4v10c0,2.21,1.79,4,4,4h6c2.21,0,4-1.79,4-4v-3h2c1.11,0,2-0.89,2-2V5C22,3.89,21.11,3,20,3z M20,8h-2V5h2V8z M4,19h16v2H4V19z" /></svg>
+                    На кофе
+                </a>
+
+            </div>
         </div>
-    </div>
 
     <script>
         let currentLogic = 'AND';
@@ -666,9 +677,9 @@
         if (currentQual === '0+') activeRegexes.push("качество: \\+");
         else activeRegexes.push("качество: \\+[1-9]\\d");
         } else if (cb.id === 'cb-sock') {
-        if (currentSock === '1+') activeRegexes.push("да: .");
-        else activeRegexes.push("да: . .");
-        } else {
+                    if (currentSock === '1+') activeRegexes.push("незда: .");
+                    else activeRegexes.push("незда: . .");
+                } else {
         activeRegexes.push(cb.value);
         }
         });
